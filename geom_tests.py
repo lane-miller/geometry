@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import ipdb
 
 
-N = 3		# number of sides on regular polygon
+N = 4		# number of sides on regular polygon
 R = 1.0			# radius of encompassing circle
-tau = 0.0			# rotation angle (deg)
+tau = 10.0			# rotation angle (deg)
 dTheta = 1.0		# resolution in theta (deg)
+center = (-3,-3)
 
 
 
@@ -33,12 +34,22 @@ rho_poly_all = np.append(rho_poly_all, rho_poly_all[0])
 # Rotate shape tau degrees
 theta_all += np.deg2rad(tau)
 
+# Translate to requested center
+x = rho_poly_all * np.cos(theta_all) + center[0]
+y = rho_poly_all * np.sin(theta_all) + center[1]
+
+theta_all_prime = np.arctan(y / x)
+rho_all_prime = np.sqrt(x**2 + y**2)
+
 # Plot 
+# plt.figure(1)
+# plt.polar(theta_all, np.ones(theta_all.shape), color='black', linewidth=2.5)
+# plt.polar(theta_all, rho_poly_all, color='blue', linewidth=2.5)
+
+# Plot
 plt.figure(2)
-plt.polar(theta_all, np.ones(theta_all.shape), color='black', linewidth=2.5)
-plt.polar(theta_all, rho_poly_all, color='blue', linewidth=2.5)
-
-
+# plt.polar(theta_all_prime, rho_all_prime, color='black', linewidth=2.5)
+plt.plot(x, y, color='black', linewidth=2.5)
 
 # Show plots
 plt.show()
