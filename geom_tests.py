@@ -20,7 +20,7 @@ rho_poly = R * np.tan(alpha) / (np.sin(theta) + \
 		 np.tan(alpha) * np.cos(theta))
 rho_circ = R * np.ones(theta.shape)
 
-
+# Compute remaining points
 theta_all = theta
 rho_poly_all = rho_poly
 for ii in range(N - 1):
@@ -29,6 +29,9 @@ for ii in range(N - 1):
 	rho_poly_all = np.append(rho_poly_all, rho_poly)
 theta_all = np.append(theta_all, 2 * np.pi)
 rho_poly_all = np.append(rho_poly_all, rho_poly_all[0])
+
+# Rotate shape tau degrees
+theta_all += np.deg2rad(tau)
 
 # Plot 
 plt.figure(2)
